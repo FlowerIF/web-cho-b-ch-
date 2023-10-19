@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>GET ID</title>
+	<	<style type="text/css">
+		@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+
+* {margin: 0; padding: 0;}
+
+html {
+	height: 100%;
+	
+	background: 
+	linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+}
+
+body {
+	font-family: montserrat, arial, verdana;
+}
+
+#msform {
+	width: 500px;
+	margin: 150px auto;
+	text-align: center;
+	position: relative;
+}
+#msform fieldset {
+	background: white;
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	padding: 20px 30px;
+	box-sizing: border-box;
+	width: 80%;
+	margin: 0 10%;
+
+	position: relative;
+}
+
+#msform input, #msform textarea {
+	padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: montserrat;
+	color: #2C3E50;
+	font-size: 13px;
+}
+/*buttons*/
+#msform .action-button {
+	width: 100px;
+	background: #27AE60;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+}
+#msform .action-button:hover, #msform .action-button:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+
+#error_span
+{
+	width: 100%;
+	font-family: montserrat;
+	color: red;
+	font-size: 13px;
+	font-weight: bold;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: gray;
+	opacity: 0.5; /* Firefox */
+}
+h4{
+    text-align:center;
+}
+#btn{
+	width: 100px;
+    background: #27AE60;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+</style>
+</head>
+
+<body>
+
+	<form id="msform">
+
+		<fieldset>
+
+			<h2 class="fs-title">Lấy ID sản phẩm Sọp pe</h2>
+			<br>
+			Link<input type="text" id="link" placeholder="Nhập link sản phẩm vào đây" style="width: 85%;margin-left: 10px;color: black;font-weight: bold;" />
+			<br>
+			<span id="error_span"></span>
+			<br>
+
+			<input type="submit" class="submit action-button" value="Get" onclick="return get_id();" />
+            <br>
+            <p id="linksp"></p>
+			
+            
+		</fieldset>
+
+	</form>
+	<input  type="text" id="url"  value="" >
+	<button onclick="shortURL()" id="btn">Short Url</button>
+    <h4>Design by D0Tran</h4>
+</body>
+
+<script type="text/javascript">
+	
+	var link_chua_rut_gon;
+	function get_id()
+	{	
+		const regexID =  /^(https:\/\/[a-z]+\.[a-z]+\/[a-zA-Z0-9\%\-\()]+)\.(\d{1,})\.(\d{1,})([\?a-zA-z0-9\-\=\&]+)$/;
+		
+		const id = document.getElementById('link').value;
+		const error = document.getElementById('error_span');
+
+		let result = id.match(regexID);
+		
+		if (result !== null && result[1] != "undefined" && result[2] != "undefined" )
+		{
+			error.innerHTML = '';
+			document.getElementById("linksp").innerHTML = (`https://shopee.vn/product/${result[2]}\/${result[3]}\?utm_campaign=-&utm_content=----&utm_medium=affiliates&utm_source=an_17377610055`);
+            link_chua_rut_gon = document.getElementById('linksp').innerHTML;
+			document.getElementById('url').value = link_chua_rut_gon;
+			return false;
+		}
+		else
+		{
+			error.innerHTML = 'Link không hợp lệ!';
+			return false;
+		}
+	}
+	async function shortURL() {
+		var Url = document.getElementById("url").value;
+		var response = await(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(Url)}`);
+		if (response.ok) {
+			var data = await response.text();
+			document.getElementById('result').innerHTML = `
+			shortend URL : <a href="${data }" target="_blank">${data}</a>`;
+		}
+		else{
+			document.getElementById('error_span').innerHTML = "Error shortening";
+		}
+	
+	}
+   
+
+    
+</script>
+</html>
+
+
+
+<!-- 
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>GET ID</title>
+	<	<style type="text/css">
+		@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+
+* {margin: 0; padding: 0;}
+
+html {
+	height: 100%;
+	
+	background: 
+	linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+}
+
+body {
+	font-family: montserrat, arial, verdana;
+}
+
+#msform {
+	width: 500px;
+	margin: 150px auto;
+	text-align: center;
+	position: relative;
+}
+#msform fieldset {
+	background: white;
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	padding: 20px 30px;
+	box-sizing: border-box;
+	width: 80%;
+	margin: 0 10%;
+
+	position: relative;
+}
+
+#msform input, #msform textarea {
+	padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: montserrat;
+	color: #2C3E50;
+	font-size: 13px;
+}
+/*buttons*/
+#msform .action-button {
+	width: 100px;
+	background: #27AE60;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 5px;
+	cursor: pointer;
+	padding: 10px 5px;
+	margin: 10px 5px;
+}
+#msform .action-button:hover, #msform .action-button:focus {
+	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+
+#error_span
+{
+	width: 100%;
+	font-family: montserrat;
+	color: red;
+	font-size: 13px;
+	font-weight: bold;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: gray;
+	opacity: 0.5; /* Firefox */
+}
+h4{
+    text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+	<form id="msform">
+
+		<fieldset>
+
+			<h2 class="fs-title">Lấy ID sản phẩm</h2>
+			<br>
+			Link<input type="text" id="link" placeholder="nhập link sản phẩm vào đây" style="width: 85%;margin-left: 10px;color: black;font-weight: bold;" />
+			<br>
+			<span id="error_span"></span>
+			<br>
+
+			<input type="submit" class="submit action-button" value="Get" onclick="return get_id();" />
+            <br>
+            <p id="linksp"></p>
+            <button type="submit" class="submit action-button" onclick="copyElementText('linksp')">Bấm để copy</button>
+            
+		</fieldset>
+
+	</form>
+    <h4>Design by D0Tran</h4>
+</body>
+
+<script type="text/javascript">
+	
+
+	function get_id()
+	{
+		const regexID1 =  /\d{6,}/;
+        const regexID2 =  /\d{10,}/;
+		const id = document.getElementById('link').value;
+		const error = document.getElementById('error_span');
+
+		let result1 = id.match(regexID1);
+		let result2 = id.match(regexID2);
+		
+		if (result1 !== null && result1[1] != "undefined" && result2 !== null && result2[1] != "undefined" )
+		{
+			error.innerHTML = '';
+			document.getElementById("linksp").innerHTML = (`https://shopee.vn/product/${result1[0]}\/${result2[0]}\?utm_campaign=-&utm_content=----&utm_medium=affiliates&utm_source=an_17377610055`);
+            return false;
+            
+        }
+		else 
+		{
+			error.innerHTML = 'Link không hợp lệ!';
+			return false;
+		}
+	}
+    function copyElementText(id) {
+        var text = document.getElementById(id).innerText;
+        if( text == ''){
+            const error = document.getElementById('error_span');
+            error.innerHTML = 'Link không hợp lệ!';
+        }
+        else{
+            var elem = document.createElement("textarea");
+            document.body.appendChild(elem);
+            elem.value = text;
+            elem.select();
+            document.execCommand("copy");
+            document.body.removeChild(elem);
+            window.alert(`Coppy thành công rồi nha phen!`);
+        }
+    }
+
+    
+</script>
+</html> -->
